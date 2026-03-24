@@ -14,7 +14,7 @@ const scaffoldFiles = async (targetDir, projectName, config, markdownContent, op
       version: "1.0.0",
       description: "",
       dependencies: {
-        "@pkagentic/pkmcp": "latest"
+        "@pkagentic/mcp": "latest"
       }
     };
     await fs.writeJson(path.join(targetDir, 'package.json'), pkgJson, { spaces: 2 });
@@ -26,7 +26,7 @@ const scaffoldFiles = async (targetDir, projectName, config, markdownContent, op
     await fs.writeFile(path.join(targetDir, 'CODEX.md'), '@AGENTS.md');
 
     // Default bin path (will be updated after npm install)
-    const binPath = './node_modules/@pkagentic/pkmcp/dist/index.js';
+    const binPath = './node_modules/@pkagentic/mcp/dist/index.js';
 
     // MCP Config
     const mcpConfig = {
@@ -80,11 +80,11 @@ const installAndFinalize = async (targetDir, configs, mcpConfig) => {
 
     // Discover actual bin path
     const possibleBins = [
-      path.join(targetDir, 'node_modules', '@pkagentic', 'pkmcp', 'dist', 'index.js'),
+      path.join(targetDir, 'node_modules', '@pkagentic', 'mcp', 'dist', 'index.js'),
       path.join(targetDir, 'node_modules', 'pk-mcp', 'dist', 'index.js')
     ];
 
-    let finalBinPath = './node_modules/@pkagentic/pkmcp/dist/index.js';
+    let finalBinPath = './node_modules/@pkagentic/mcp/dist/index.js';
     for (const p of possibleBins) {
       if (await fs.pathExists(p)) {
         finalBinPath = './' + path.relative(targetDir, p);
