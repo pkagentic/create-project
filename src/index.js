@@ -107,7 +107,7 @@ program
             type: 'input',
             name: 'geminiApiKey',
             message: 'Gemini API Key (AI Studio):',
-            when: options.addGeminiKey,
+            when: () => !!options.addGeminiKey,
             default: existingConfig.geminiApiKey || '',
           }
         ]);
