@@ -15,7 +15,7 @@ const program = new Command();
 program
   .name('@pkagentic/create-project')
   .description('Scaffold and configure a PK Agentic project')
-  .version('1.1.0')
+  .version('1.1.2')
   .argument('[project-directory]', 'Project directory name (defaults to current directory if not provided)')
   .option('--add-gemini-key', 'Include Gemini API Key in configuration')
   .option('--skip-ssl-verify', 'Skip SSL certificate verification (useful for local development)')
