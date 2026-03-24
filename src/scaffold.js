@@ -100,6 +100,8 @@ const installAndFinalize = async (targetDir, configs, mcpConfig) => {
 
   } catch (err) {
     installSpinner.fail(chalk.red('Failed to install dependencies.'));
+    if (err.stderr) console.error(chalk.red('\nNPM Error:'), err.stderr);
+    else console.error(chalk.red('\nError:'), err.message);
     console.log(chalk.yellow('Please run "npm install" manually in the project folder.'));
   }
 };
