@@ -7,19 +7,7 @@ Scaffold and configure a PK Agentic project quickly and easily. This tool provid
 You can run the scaffolder directly using `npx`:
 
 ```bash
-npx @pkagentic/create-project [project-directory]
-```
-
-Or, if installed globally:
-
-```bash
-create-pk-agentic [project-directory]
-```
-
-## Usage
-
-```bash
-create-pk-agentic [project-directory] [options]
+npx @pkagentic/create-project@latest [project-directory]
 ```
 
 ### Parameters
