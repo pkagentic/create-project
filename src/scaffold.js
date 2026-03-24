@@ -43,8 +43,8 @@ const scaffoldFiles = async (targetDir, projectName, config, markdownContent, op
       }
     };
 
-    if (options.addGoogleApi) {
-      mcpConfig.mcpServers["pk-agent"].env["GEMINI_API_KEY"] = config.googleApiKey;
+    if (options.addGeminiKey) {
+      mcpConfig.mcpServers["pk-agent"].env["GEMINI_API_KEY"] = config.geminiApiKey;
     }
 
     // Write config to all locations

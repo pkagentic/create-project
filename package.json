@@ -1,6 +1,6 @@
 {
   "name": "@pkagentic/create-project",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Scaffold a PK Agentic project",
   "main": "src/index.js",
   "publishConfig": {

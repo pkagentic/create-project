@@ -15,9 +15,9 @@ const program = new Command();
 program
   .name('@pkagentic/create-project')
   .description('Scaffold and configure a PK Agentic project')
-  .version('1.0.0')
+  .version('1.1.0')
   .argument('[project-directory]', 'Project directory name (defaults to current directory if not provided)')
-  .option('--add-google-api', 'Include Google API Key in configuration')
+  .option('--add-gemini-key', 'Include Gemini API Key in configuration')
   .action(async (projectDir, options) => {
     try {
       const targetDir = projectDir ? path.resolve(process.cwd(), projectDir) : process.cwd();
@@ -68,7 +68,7 @@ program
               endpoint: s.env.PK_AGENT_API_URL,
               key: s.env.PK_AGENT_KEY,
               email: s.env.PK_AGENT_EMAIL,
-              googleApiKey: s.env.GEMINI_API_KEY
+              geminiApiKey: s.env.GEMINI_API_KEY
             };
           }
         } catch (e) {}
@@ -105,11 +105,10 @@ program
           },
           {
             type: 'input',
-            name: 'googleApiKey',
-            message: 'Google API Key (AI Studio):',
-            when: options.addGoogleApi,
-            default: existingConfig.googleApiKey || '',
-            validate: (i) => i ? true : 'Required',
+            name: 'geminiApiKey',
+            message: 'Gemini API Key (AI Studio):',
+            when: options.addGeminiKey,
+            default: existingConfig.geminiApiKey || '',
           }
         ]);
 

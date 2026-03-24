@@ -16,7 +16,7 @@ npx @pkagentic/create-project@latest [project-directory]
 
 ### Options
 
-- `--add-google-api`: Include the Google API Key (AI Studio) configuration in the wizard.
+- `--add-gemini-key`: Include the Gemini API Key (AI Studio) configuration in the wizard.
 - `-V, --version`: Output the version number.
 - `-h, --help`: Display help for the command.
 
@@ -30,4 +30,4 @@ The tool will guide you through the following steps:
     - **Agent API Endpoint**: Your WordPress site's API endpoint.
     - **Agent API Key**: The key generated in step 2.
     - **Agent API Email**: The email associated with the API key.
-    - **Google API Key**: (Optional, if `--add-google-api` is used) Your Google AI Studio API key.
+    - **Gemini API Key**: (Optional, if `--add-gemini-key` is used) Your Gemini API Key from Google AI Studio.
