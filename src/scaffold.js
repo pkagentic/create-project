@@ -43,6 +43,10 @@ const scaffoldFiles = async (targetDir, projectName, config, markdownContent, op
       }
     };
 
+    if (options.skipSslVerify) {
+      mcpConfig.mcpServers["pk-agent"].env["NODE_TLS_REJECT_UNAUTHORIZED"] = "0";
+    }
+
     if (options.addGeminiKey) {
       mcpConfig.mcpServers["pk-agent"].env["GEMINI_API_KEY"] = config.geminiApiKey;
     }

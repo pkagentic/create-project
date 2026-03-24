@@ -1,20 +1,29 @@
 const axios = require('axios');
+const https = require('https');
 const ora = require('ora');
 const chalk = require('chalk');
 
-const validateCredentials = async (endpoint, key, email) => {
+const validateCredentials = async (endpoint, key, email, skipSslVerify = false) => {
   const baseURL = endpoint.endsWith('/') ? endpoint : `${endpoint}/`;
   const spinner = ora('Testing API connection...').start();
   
   try {
-    const axiosInstance = axios.create({
+    const axiosConfig = {
       baseURL,
       headers: {
         "X-PK-Agent-Key": key,
         "X-PK-Agent-Email": email,
         "Content-Type": "application/json",
       },
-    });
+    };
+
+    if (skipSslVerify) {
+      axiosConfig.httpsAgent = new https.Agent({
+        rejectUnauthorized: false
+      });
+    }
+
+    const axiosInstance = axios.create(axiosConfig);
 
     const response = await axiosInstance.get('guide', {
       params: { guide: 'main' }

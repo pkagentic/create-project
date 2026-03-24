@@ -18,6 +18,7 @@ program
   .version('1.1.0')
   .argument('[project-directory]', 'Project directory name (defaults to current directory if not provided)')
   .option('--add-gemini-key', 'Include Gemini API Key in configuration')
+  .option('--skip-ssl-verify', 'Skip SSL certificate verification (useful for local development)')
   .action(async (projectDir, options) => {
     try {
       const targetDir = projectDir ? path.resolve(process.cwd(), projectDir) : process.cwd();
@@ -112,7 +113,7 @@ program
           }
         ]);
 
-        validationResult = await validateCredentials(config.endpoint, config.key, config.email);
+        validationResult = await validateCredentials(config.endpoint, config.key, config.email, options.skipSslVerify);
         if (validationResult.success) {
           apiValidated = true;
         } else {

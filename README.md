@@ -17,6 +17,7 @@ npx @pkagentic/create-project@latest [project-directory]
 ### Options
 
 - `--add-gemini-key`: Include the Gemini API Key (AI Studio) configuration in the wizard.
+- `--skip-ssl-verify`: Skip SSL certificate verification (useful for local development).
 - `-V, --version`: Output the version number.
 - `-h, --help`: Display help for the command.
 
