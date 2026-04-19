@@ -12,14 +12,45 @@ npx @pkagentic/create-project@latest [project-directory]
 
 ### Parameters
 
-- `project-directory` (Optional): The name of the directory where the project will be scaffolded. If not provided, it defaults to the current directory (`.`).
+- `project-directory` (Optional): The directory where the project will be created (defaults to current directory if not provided).
 
 ### Options
 
-- `--add-gemini-key`: Include the Gemini API Key (AI Studio) for image generation configuration in the wizard.
-- `--skip-ssl-verify`: Skip SSL certificate verification (useful for local development).
+- `--add-gemini-key`: Enable integration with Google Gemini AI Studio. Your API key will be used for AI-powered image generation within your agents.
+- `--skip-ssl-verify`: Disable SSL certificate validation. Use this if your WordPress site is using a self-signed certificate or if you encounter SSL-related errors during connection.
 - `-V, --version`: Output the version number.
 - `-h, --help`: Display help for the command.
+
+## Usage Examples
+
+```bash
+# Standard scaffold in current directory
+npx @pkagentic/create-project
+
+# Scaffold in a specific directory
+npx @pkagentic/create-project my-new-agent
+
+# Include Gemini API Key in the setup
+npx @pkagentic/create-project --add-gemini-key
+
+# Skip SSL verification (useful for local development)
+npx @pkagentic/create-project --skip-ssl-verify
+```
+
+## Supported Platforms
+
+The tool generates configuration files for multiple platforms:
+
+- Claude (Desktop/CLI via .mcp.json)
+- Google Gemini (settings.json)
+- Antigravity (mcp_config.json)
+- Cursor (.cursor/mcp.json)
+- Windsurf (mcp_config.json)
+- GitHub Copilot (.vscode/mcp.json)
+- Roo Code (.roo/mcp.json)
+- Codex (.codex/config.toml)
+- OpenCode (opencode.json)
+- Kilocode (.kilocode/mcp.json)
 
 ## Configuration Wizard
 

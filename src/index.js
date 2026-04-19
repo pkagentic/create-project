@@ -14,11 +14,31 @@ const program = new Command();
 
 program
   .name('@pkagentic/create-project')
-  .description('Scaffold and configure a PK Agentic project')
-  .version('1.2.1')
-  .argument('[project-directory]', 'Project directory name (defaults to current directory if not provided)')
-  .option('--add-gemini-key', 'Include Gemini API Key in configuration')
-  .option('--skip-ssl-verify', 'Skip SSL certificate verification (useful for local development)')
+  .description('Scaffold and configure a PK Agentic project for various MCP-compatible platforms.')
+  .version('1.2.2')
+  .argument('[project-directory]', 'The directory where the project will be created (defaults to current directory if not provided)')
+  .option('--add-gemini-key', 'Enable integration with Google Gemini AI Studio. Your API key will be used for AI-powered image generation within your agents.')
+  .option('--skip-ssl-verify', 'Disable SSL certificate validation. Use this if your WordPress site is using a self-signed certificate or if you encounter SSL-related errors during connection.')
+  .addHelpText('after', `
+Examples:
+  $ npx @pkagentic/create-project
+  $ npx @pkagentic/create-project my-agent-project
+  $ npx @pkagentic/create-project --add-gemini-key
+  $ npx @pkagentic/create-project --skip-ssl-verify --add-gemini-key
+
+Supported Platforms:
+  This tool generates configuration files for multiple platforms:
+  - Claude (Desktop/CLI via .mcp.json)
+  - Google Gemini (settings.json)
+  - Antigravity (mcp_config.json)
+  - Cursor (.cursor/mcp.json)
+  - Windsurf (mcp_config.json)
+  - GitHub Copilot (.vscode/mcp.json)
+  - Roo Code (.roo/mcp.json)
+  - Codex (.codex/config.toml)
+  - OpenCode (opencode.json)
+  - Kilocode (.kilocode/mcp.json)
+`)
   .action(async (projectDir, options) => {
     try {
       const targetDir = projectDir ? path.resolve(process.cwd(), projectDir) : process.cwd();
