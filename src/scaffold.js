@@ -4,6 +4,46 @@ const ora = require('ora');
 const chalk = require('chalk');
 const execa = require('execa');
 
+const writeMcpConfig = async (filePath, mcpConfig) => {
+  await fs.ensureDir(path.dirname(filePath));
+  if (filePath.endsWith('.toml')) {
+    let toml = '';
+    for (const [name, config] of Object.entries(mcpConfig.mcpServers)) {
+      toml += `[mcp_servers."${name}"]\n`;
+      toml += `command = ${JSON.stringify(config.command)}\n`;
+      toml += `args = ${JSON.stringify(config.args)}\n`;
+      if (config.env && Object.keys(config.env).length > 0) {
+        toml += `\n[mcp_servers."${name}".env]\n`;
+        for (const [key, value] of Object.entries(config.env)) {
+          toml += `${key} = ${JSON.stringify(value)}\n`;
+        }
+      }
+      toml += '\n';
+    }
+    await fs.writeFile(filePath, toml.trim() + '\n');
+  } else if (path.basename(filePath) === 'opencode.json') {
+    // OpenCode specific format
+    const opencodeConfig = { mcp: {} };
+    for (const [name, config] of Object.entries(mcpConfig.mcpServers)) {
+      opencodeConfig.mcp[name] = {
+        type: 'local',
+        command: [config.command, ...config.args],
+        enabled: true,
+        environment: config.env || {}
+      };
+    }
+    await fs.writeJson(filePath, opencodeConfig, { spaces: 2 });
+  } else if (filePath.endsWith('.vscode/mcp.json')) {
+    // GitHub Copilot / VS Code format
+    const vscodeConfig = {
+      servers: mcpConfig.mcpServers
+    };
+    await fs.writeJson(filePath, vscodeConfig, { spaces: 2 });
+  } else {
+    await fs.writeJson(filePath, mcpConfig, { spaces: 2 });
+  }
+};
+
 const scaffoldFiles = async (targetDir, projectName, config, markdownContent, options) => {
   const spinner = ora('Generating project files...').start();
   
@@ -56,12 +96,17 @@ const scaffoldFiles = async (targetDir, projectName, config, markdownContent, op
       path.join(targetDir, '.mcp.json'),
       path.join(targetDir, '.kilocode', 'mcp.json'),
       path.join(targetDir, '.cursor', 'mcp.json'),
-      path.join(targetDir, '.gemini', 'settings.json')
+      path.join(targetDir, '.vscode', 'mcp.json'),
+      path.join(targetDir, '.roo', 'mcp.json'),
+      path.join(targetDir, '.gemini', 'settings.json'),
+      path.join(targetDir, '.gemini', 'antigravity', 'mcp_config.json'),
+      path.join(targetDir, '.codeium', 'windsurf', 'mcp_config.json'),
+      path.join(targetDir, '.codex', 'config.toml'),
+      path.join(targetDir, 'opencode.json')
     ];
 
     for (const cPath of configs) {
-      await fs.ensureDir(path.dirname(cPath));
-      await fs.writeJson(cPath, mcpConfig, { spaces: 2 });
+      await writeMcpConfig(cPath, mcpConfig);
     }
 
     spinner.succeed(chalk.green('Project files generated!'));
@@ -95,7 +140,7 @@ const installAndFinalize = async (targetDir, configs, mcpConfig) => {
     // Update all config files with the discovered bin path
     mcpConfig.mcpServers["pk-agent"].args = [finalBinPath];
     for (const cPath of configs) {
-      await fs.writeJson(cPath, mcpConfig, { spaces: 2 });
+      await writeMcpConfig(cPath, mcpConfig);
     }
 
   } catch (err) {

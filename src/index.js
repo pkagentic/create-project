@@ -15,7 +15,7 @@ const program = new Command();
 program
   .name('@pkagentic/create-project')
   .description('Scaffold and configure a PK Agentic project')
-  .version('1.1.5')
+  .version('1.2.1')
   .argument('[project-directory]', 'Project directory name (defaults to current directory if not provided)')
   .option('--add-gemini-key', 'Include Gemini API Key in configuration')
   .option('--skip-ssl-verify', 'Skip SSL certificate verification (useful for local development)')
@@ -137,6 +137,18 @@ program
 
       showSuccess('Project setup complete!');
       console.log(chalk.white(`Directory: ${targetDir}\n`));
+
+      console.log(chalk.cyan('Supported Platforms:'));
+      console.log(chalk.white('  - Claude (Desktop/CLI via .mcp.json)'));
+      console.log(chalk.white('  - Gemini (settings.json)'));
+      console.log(chalk.white('  - Antigravity (mcp_config.json)'));
+      console.log(chalk.white('  - Cursor (.cursor/mcp.json)'));
+      console.log(chalk.white('  - Windsurf (mcp_config.json)'));
+      console.log(chalk.white('  - GitHub Copilot (.vscode/mcp.json)'));
+      console.log(chalk.white('  - Roo Code (.roo/mcp.json)'));
+      console.log(chalk.white('  - Codex (.codex/config.toml)'));
+      console.log(chalk.white('  - OpenCode (opencode.json)'));
+      console.log(chalk.white('  - Kilocode (.kilocode/mcp.json)\n'));
 
       if (targetDir !== process.cwd()) {
         const relativePath = path.relative(process.cwd(), targetDir);
