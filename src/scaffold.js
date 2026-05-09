@@ -22,15 +22,17 @@ const writeMcpConfig = async (filePath, mcpConfig) => {
     }
     await fs.writeFile(filePath, toml.trim() + '\n');
   } else if (path.basename(filePath) === 'opencode.json') {
-    // OpenCode specific format
-    const opencodeConfig = { mcp: {} };
+    const opencodeConfig = { $schema: 'https://opencode.ai/config.json', mcp: {} };
     for (const [name, config] of Object.entries(mcpConfig.mcpServers)) {
-      opencodeConfig.mcp[name] = {
+      const serverEntry = {
         type: 'local',
         command: [config.command, ...config.args],
         enabled: true,
-        environment: config.env || {}
       };
+      if (config.env && Object.keys(config.env).length > 0) {
+        serverEntry.environment = config.env;
+      }
+      opencodeConfig.mcp[name] = serverEntry;
     }
     await fs.writeJson(filePath, opencodeConfig, { spaces: 2 });
   } else if (filePath.endsWith('.vscode/mcp.json')) {
