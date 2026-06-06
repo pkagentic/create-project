@@ -37,6 +37,7 @@ async function runTest() {
       '.roo/mcp.json',
       '.gemini/settings.json',
       '.gemini/antigravity/mcp_config.json',
+      '.agents/mcp_config.json',
       '.codeium/windsurf/mcp_config.json',
       '.codex/config.toml',
       'opencode.json'
@@ -76,6 +77,20 @@ async function runTest() {
       console.log('✅ VS Code format is correct');
     } else {
       console.error('❌ VS Code format is INCORRECT');
+      process.exit(1);
+    }
+
+    // Verify antigravity-cli format (mirrors Gemini settings.json)
+    const antigravityCliContent = await fs.readJson(path.join(targetDir, '.agents', 'mcp_config.json'));
+    const geminiContent = await fs.readJson(path.join(targetDir, '.gemini', 'settings.json'));
+    if (
+      antigravityCliContent.mcpServers &&
+      antigravityCliContent.mcpServers['pk-agent'] &&
+      JSON.stringify(antigravityCliContent) === JSON.stringify(geminiContent)
+    ) {
+      console.log('✅ Antigravity CLI format matches Gemini settings.json');
+    } else {
+      console.error('❌ Antigravity CLI format is INCORRECT');
       process.exit(1);
     }
 

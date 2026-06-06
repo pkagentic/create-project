@@ -41,6 +41,9 @@ const writeMcpConfig = async (filePath, mcpConfig) => {
       servers: mcpConfig.mcpServers
     };
     await fs.writeJson(filePath, vscodeConfig, { spaces: 2 });
+  } else if (filePath.endsWith('.agents/mcp_config.json')) {
+    // antigravity-cli format — mirrors Gemini settings.json (standard mcpServers schema)
+    await fs.writeJson(filePath, mcpConfig, { spaces: 2 });
   } else {
     await fs.writeJson(filePath, mcpConfig, { spaces: 2 });
   }
@@ -102,6 +105,7 @@ const scaffoldFiles = async (targetDir, projectName, config, markdownContent, op
       path.join(targetDir, '.roo', 'mcp.json'),
       path.join(targetDir, '.gemini', 'settings.json'),
       path.join(targetDir, '.gemini', 'antigravity', 'mcp_config.json'),
+      path.join(targetDir, '.agents', 'mcp_config.json'),
       path.join(targetDir, '.codeium', 'windsurf', 'mcp_config.json'),
       path.join(targetDir, '.codex', 'config.toml'),
       path.join(targetDir, 'opencode.json')

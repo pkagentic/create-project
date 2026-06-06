@@ -30,7 +30,8 @@ Supported Platforms:
   This tool generates configuration files for multiple platforms:
   - Claude (Desktop/CLI via .mcp.json)
   - Google Gemini (settings.json)
-  - Antigravity (mcp_config.json)
+  - Antigravity CLI (.agents/mcp_config.json)
+  - Antigravity Gemini (.gemini/antigravity/mcp_config.json)
   - Cursor (.cursor/mcp.json)
   - Windsurf (mcp_config.json)
   - GitHub Copilot (.vscode/mcp.json)
@@ -161,7 +162,8 @@ Supported Platforms:
       console.log(chalk.cyan('Supported Platforms:'));
       console.log(chalk.white('  - Claude (Desktop/CLI via .mcp.json)'));
       console.log(chalk.white('  - Gemini (settings.json)'));
-      console.log(chalk.white('  - Antigravity (mcp_config.json)'));
+      console.log(chalk.white('  - Antigravity CLI (.agents/mcp_config.json)'));
+      console.log(chalk.white('  - Antigravity Gemini (.gemini/antigravity/mcp_config.json)'));
       console.log(chalk.white('  - Cursor (.cursor/mcp.json)'));
       console.log(chalk.white('  - Windsurf (mcp_config.json)'));
       console.log(chalk.white('  - GitHub Copilot (.vscode/mcp.json)'));
