@@ -15,7 +15,7 @@ const program = new Command();
 program
   .name('@pkagentic/create-project')
   .description('Scaffold and configure a PK Agentic project for various MCP-compatible platforms.')
-  .version('1.2.2')
+  .version('1.3.0')
   .argument('[project-directory]', 'The directory where the project will be created (defaults to current directory if not provided)')
   .option('--add-gemini-key', 'Enable integration with Google Gemini AI Studio. Your API key will be used for AI-powered image generation within your agents.')
   .option('--skip-ssl-verify', 'Disable SSL certificate validation. Use this if your WordPress site is using a self-signed certificate or if you encounter SSL-related errors during connection.')
